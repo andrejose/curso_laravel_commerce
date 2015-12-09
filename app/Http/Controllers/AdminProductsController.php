@@ -15,6 +15,7 @@ class AdminProductsController extends Controller
     private $products;
     public function __construct(Product $product)
     {
+        $this->middleware('guest');
         $this->products = $product;
     }
 
