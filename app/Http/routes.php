@@ -24,11 +24,16 @@
 //	return $c->name;
 //});
 
+/*
 Route::get('category/{category}', function(\CodeCommerce\Category $category){
 	// Registra o parâmetro category no RouteServiceProvider
 	// /laravel/laravel_commerce/app/Providers/RouteServiceProvider.php
 	return $category->name;
 });
+*/
+
+Route::get('categories', 'CategoriesController@index');
+Route::get('categories/create', 'CategoriesController@create');
 
 
 // Definindo um nome para a rota
@@ -67,7 +72,7 @@ Route::get('user/{id?}', function($id = null){
 
 	return 'Não possui ID';
 
-}); 
+});
 
 //Adiciona uma regra para informar que o parâmetro deve conter apenas letras com no mínimo 1 dígito
 //->where('id', '[A-Za-z]+');

@@ -27,7 +27,7 @@ class RouteServiceProvider extends ServiceProvider
         //
         $router->pattern('id', '[0-9]+');
 
-        $router->model('category', 'CodeCommerce\Category');
+        //$router->model('category', 'CodeCommerce\Category');
 
         parent::boot($router);
     }
