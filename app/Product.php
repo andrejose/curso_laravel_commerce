@@ -12,5 +12,17 @@ class Product extends Model
 	 *
 	 * @var array
 	 */
-    protected $fillable = ['name', 'description', 'price'];
+    protected $fillable = [
+    	'category_id',
+    	'name',
+    	'description',
+    	'price'
+    ];
+
+    // Método que retorna a categoria de um produto
+    public function category()
+    {
+    	return $this->belongsTo('CodeCommerce\Category');
+    }
+
 }

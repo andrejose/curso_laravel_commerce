@@ -13,4 +13,10 @@ class Category extends Model
 	 * @var array
 	 */
     protected $fillable = ['name', 'description'];
+
+    // Método que traz todos os produtos da categoria
+    public function products ()
+    {
+    	return $this->hasMany('CodeCommerce\Product');
+    }
 }
