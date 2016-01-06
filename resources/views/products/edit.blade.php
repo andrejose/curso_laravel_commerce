@@ -35,6 +35,16 @@
 			</div>
 
 			<div class="form-group">
+				{!! Form::checkbox('featured', 1, $product->featured, ['id'=>'featured']) !!}
+				{!! Form::label('featured', 'Featured') !!}
+			</div>
+
+			<div class="form-group">
+				{!! Form::checkbox('recommend', 1, $product->recommend, ['id'=>'recommend']) !!}
+				{!! Form::label('recommend', 'Recommend') !!}
+			</div>
+
+			<div class="form-group">
 				{!! Form::submit('Save Product', ['class' => 'btn btn-primary'])!!}
 			</div>
 

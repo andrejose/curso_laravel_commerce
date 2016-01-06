@@ -17,7 +17,7 @@
 			</div>
 		@endif
 
-		{!! Form::open(['url' => 'products' ]) !!}
+		{!! Form::open(['route' => 'products' ]) !!}
 
 			<div class="form-group">
 				{!! Form::label('name', 'Name:') !!}
@@ -32,6 +32,16 @@
 			<div class="form-group">
 				{!! Form::label('price', 'Price:') !!}
 				{!! Form::text('price', null, ['class' => 'form-control']) !!}
+			</div>
+
+			<div class="form-group">
+				{!! Form::checkbox('featured', 1, false, ['id'=>'featured']) !!}
+				{!! Form::label('featured', 'Featured') !!}
+			</div>
+
+			<div class="form-group">
+				{!! Form::checkbox('recommend', 1, false, ['id'=>'recommend']) !!}
+				{!! Form::label('recommend', 'Recommend') !!}
 			</div>
 
 			<div class="form-group">

@@ -16,7 +16,9 @@ class Product extends Model
     	'category_id',
     	'name',
     	'description',
-    	'price'
+        'price',
+        'featured',
+        'recommend'
     ];
 
     // Método que retorna a categoria de um produto

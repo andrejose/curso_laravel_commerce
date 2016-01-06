@@ -60,6 +60,7 @@ class ProductsController extends Controller
     // Função para exibir o formulário de edição de um registro
     public function edit($id) {
         $product = $this->productModel->find($id);
+        //dd($product);
         return view('products.edit', compact('product'));
     }
 
