@@ -25,6 +25,11 @@
 			</div>
 
 			<div class="form-group">
+				{!! Form::label('category_id', 'Price:') !!}
+				{!! Form::select('category_id', $categories, $product->category_id, ['class' => 'form-control']) !!}
+			</div>
+
+			<div class="form-group">
 				{!! Form::label('description', 'Description:') !!}
 				{!! Form::textarea('description', $product->description, ['class' => 'form-control']) !!}
 			</div>

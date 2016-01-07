@@ -8,12 +8,13 @@ use CodeCommerce\Http\Requests;
 use CodeCommerce\Http\Controllers\Controller;
 
 // Importa os modelos utilizados
-use CodeCommerce\Product;
+use CodeCommerce\Product,
+    CodeCommerce\Category;
 
 class ProductsController extends Controller
 {
 	// Cria uma variável privada que vai guardar o modelo
-	private $productModel;
+    private $productModel;
 
 	// Função construtora que importa o Modelo do produto
 	public function __construct(Product $productModel)
@@ -26,16 +27,23 @@ class ProductsController extends Controller
     {
 
     	// all() -> recupera todos os registros do banco de dados
-    	$products = $this->productModel->all();
+    	$products = $this->productModel->paginate(10);
 
     	// Exibe o arquivo da view, passando a variável das produtos
     	return view('products.index', compact('products'));
     }
 
     // Ação que exibe a página de cadastro de umo produto
-    public function create()
+    public function create(Category $category)
     {
-    	return view('products.create');
+        // Seleciona todas as categorias como objeto
+        //$categories = $category->all();
+        // Seleciona todas as categorias como array
+        //https://laravel.com/docs/5.1/collections#method-merge
+        $categories = collect(['' => 'Select']);
+        $categories = $categories->merge($category->lists('name', 'id'));
+
+    	return view('products.create', compact('categories'));
     }
 
     // Ação que grava um novo registro no banco
@@ -58,10 +66,11 @@ class ProductsController extends Controller
     }
 
     // Função para exibir o formulário de edição de um registro
-    public function edit($id) {
+    public function edit($id, Category $category) {
         $product = $this->productModel->find($id);
-        //dd($product);
-        return view('products.edit', compact('product'));
+        $categories = collect(['' => 'Select']);
+        $categories = $categories->merge($category->lists('name', 'id'));
+        return view('products.edit', compact('product', 'categories'));
     }
 
     // Função para atualizar os dados do registro no banco

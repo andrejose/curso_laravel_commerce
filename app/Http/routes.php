@@ -31,18 +31,22 @@ Route::get('category/{category}', function(\CodeCommerce\Category $category){
 	return $category->name;
 });
 */
-Route::group(['prefix'=>'admin'], function(){
+// Cria um grupo de rotas com o prefixo 'admin' e cria uma validação
+// do parâmetro 'id' que deve sempre ser numérico
+Route::group(['prefix'=>'admin', 'where' => ['id'=>'[0-9]+']], function(){
 
-	Route::get('categories', ['as'=>'categories', 'uses'=>'CategoriesController@index']);
-	Route::post('categories', ['as'=>'categories.store', 'uses'=>'CategoriesController@store']);
-	Route::get('categories/create', ['as'=>'categories.create', 'uses'=> 'CategoriesController@create']);
-	Route::get('categories/{id}/destroy', ['as'=>'categories.destroy', 'uses'=>'CategoriesController@destroy']);
-	Route::get('categories/{id}/edit', ['as'=>'categories.edit', 'uses'=>'CategoriesController@edit']);
-	Route::put('categories/{id}/update', ['as'=>'categories.update', 'uses'=>'CategoriesController@update']);
+	Route::group(['prefix'=>'categories'], function(){
+		Route::get('', ['as'=>'categories', 'uses'=>'CategoriesController@index']);
+		Route::post('', ['as'=>'categories.store', 'uses'=>'CategoriesController@store']);
+		Route::get('create', ['as'=>'categories.create', 'uses'=> 'CategoriesController@create']);
+		Route::get('{id}/destroy', ['as'=>'categories.destroy', 'uses'=>'CategoriesController@destroy']);
+		Route::get('{id}/edit', ['as'=>'categories.edit', 'uses'=>'CategoriesController@edit']);
+		Route::put('{id}/update', ['as'=>'categories.update', 'uses'=>'CategoriesController@update']);
+	});
 
 	Route::group(['prefix'=>'products'], function(){
-		Route::get('/', ['as'=>'products', 'uses'=>'ProductsController@index']);
-		Route::post('/', ['as'=>'products.store', 'uses'=>'ProductsController@store']);
+		Route::get('', ['as'=>'products', 'uses'=>'ProductsController@index']);
+		Route::post('', ['as'=>'products.store', 'uses'=>'ProductsController@store']);
 		Route::get('create', ['as'=>'products.create', 'uses'=> 'ProductsController@create']);
 		Route::get('{id}/destroy', ['as'=>'products.destroy', 'uses'=>'ProductsController@destroy']);
 		Route::get('{id}/edit', ['as'=>'products.edit', 'uses'=>'ProductsController@edit']);

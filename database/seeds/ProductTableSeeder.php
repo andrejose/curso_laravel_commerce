@@ -17,6 +17,6 @@ class ProductTableSeeder extends Seeder
         // Limpa os dados da tabela de categories
         DB::table('products')->truncate();
 
-        factory('CodeCommerce\Product', 40)->create(); // cria 10 objetos no banco seguindo o modelo do Factory
+        factory('CodeCommerce\Product', 40)->create(); // cria 40 objetos no banco seguindo o modelo do Factory
     }
 }

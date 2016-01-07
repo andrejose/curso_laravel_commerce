@@ -26,7 +26,7 @@ class CategoriesController extends Controller
     {
 
     	// all() -> recupera todos os registros do banco de dados
-    	$categories = $this->categoryModel->all();
+    	$categories = $this->categoryModel->paginate(10);
 
     	// Exibe o arquivo da view, passando a variável das categorias
     	return view('categories.index', compact('categories'));
@@ -60,6 +60,8 @@ class CategoriesController extends Controller
     // Função para exibir o formulário de edição de um registro
     public function edit($id) {
         $category = $this->categoryModel->find($id);
+        // Verifica se não foi encontrada nenhuma categoria e retorna a página de erro 404
+        if(!$category) abort(404);
         return view('categories.edit', compact('category'));
     }
 
