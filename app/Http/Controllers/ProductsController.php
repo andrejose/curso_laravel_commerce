@@ -9,7 +9,10 @@ use CodeCommerce\Http\Controllers\Controller;
 
 // Importa os modelos utilizados
 use CodeCommerce\Product,
-    CodeCommerce\Category;
+    CodeCommerce\Category,
+    CodeCommerce\ProductImage,
+    File,
+    Storage;
 
 class ProductsController extends Controller
 {
@@ -40,8 +43,7 @@ class ProductsController extends Controller
         //$categories = $category->all();
         // Seleciona todas as categorias como array
         //https://laravel.com/docs/5.1/collections#method-merge
-        $categories = collect(['' => 'Select']);
-        $categories = $categories->merge($category->lists('name', 'id'));
+        $categories = [''=>'Select'] + $category->lists('name', 'id')->all();
 
     	return view('products.create', compact('categories'));
     }
@@ -68,8 +70,7 @@ class ProductsController extends Controller
     // Função para exibir o formulário de edição de um registro
     public function edit($id, Category $category) {
         $product = $this->productModel->find($id);
-        $categories = collect(['' => 'Select']);
-        $categories = $categories->merge($category->lists('name', 'id'));
+        $categories = [''=>'Select'] + $category->lists('name', 'id')->all();
         return view('products.edit', compact('product', 'categories'));
     }
 
@@ -87,5 +88,39 @@ class ProductsController extends Controller
         $this->productModel->find($id)->delete();
         return redirect()->route('products');
     }
+
+    //
+    public function images($productId)
+    {
+        $product = $this->productModel->find($productId);
+        return view('products.images', compact('product'));
+    }
+
+
+    public function createImage($productId)
+    {
+        $product = $this->productModel->find($productId);
+
+        return view('products.create_image', compact('product'));
+    }
+
+
+    public function storeImage(Request $request, $productId, ProductImage $productImage)
+    {
+
+        // Pega o arquivo enviado pelo formulário
+        $file = $request->file('image');
+        $extension = $file->getClientOriginalExtension();
+
+        // Grava a imagem no banco de dados
+        $image = $productImage::create(['product_id' => $productId, 'extension' => $extension ]);
+
+        Storage::disk('public_local')->put($image->id.'.'.$extension, File::get($file));
+
+        //return redirect()->route('products.images', ['product' => $productId]);
+
+
+    }
+
 
 }

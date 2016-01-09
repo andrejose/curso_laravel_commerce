@@ -24,7 +24,14 @@ class Product extends Model
     // Método que retorna a categoria de um produto
     public function category()
     {
-    	return $this->belongsTo('CodeCommerce\Category');
+        return $this->belongsTo('CodeCommerce\Category');
+    }
+
+
+    // Método que retorna todas as imagens do produto
+    public function images()
+    {
+        return $this->hasMany('CodeCommerce\ProductImage');
     }
 
 }

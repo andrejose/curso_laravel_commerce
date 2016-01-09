@@ -15,7 +15,7 @@
 				<th>Name</th>
 				<th>Description</th>
 				<th>Price</th>
-				<th>Catagory</th>
+				<th>Category</th>
 				<th>Action</th>
 			</tr>
 			@foreach ($products as $product)

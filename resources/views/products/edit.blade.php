@@ -25,7 +25,7 @@
 			</div>
 
 			<div class="form-group">
-				{!! Form::label('category_id', 'Price:') !!}
+				{!! Form::label('category_id', 'Category:') !!}
 				{!! Form::select('category_id', $categories, $product->category_id, ['class' => 'form-control']) !!}
 			</div>
 
